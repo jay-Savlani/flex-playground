@@ -22,7 +22,7 @@
 
 	let activeFlexBoxItem = '-1';
 
-	let childflexItemsArr = null;
+	let childflexItemsArr = [];
 	let defaultChildFlexItemInlineCss = convertStyleObjectToCSSString(defaultFlexItemCssProperties);
 	let error = '';
 
@@ -50,14 +50,16 @@
 
 		// assign child element data only when flex child item is clicked
 		// performance optimisation
-		childflexItemsArr[i] = {
-			childFlexItemEl: selfEl,
-			childFlexItemInlineCss: defaultChildFlexItemInlineCss,
-			childFlexItemCssObj: { ...defaultFlexItemCssProperties }
-		};
+		if (!childflexItemsArr[i]) {
+			childflexItemsArr[i] = {
+				childFlexItemEl: selfEl,
+				childFlexItemInlineCss: defaultChildFlexItemInlineCss,
+				childFlexItemCssObj: { ...defaultFlexItemCssProperties }
+			};
 
-		// svelte assignment to update component
-		childflexItemsArr = [...childflexItemsArr];
+			// svelte assignment to update component
+			childflexItemsArr = [...childflexItemsArr];
+		}
 	};
 
 	const handleSelectChange = (e, styleObj, cssProp, changeInlineCss) => {
@@ -73,6 +75,8 @@
 			cssPropertiesParent.forEach((cssProperty) => {
 				parentFlexBoxCssProperties[cssProperty] = flexParentElement.style[cssProperty];
 			});
+			// svelte assignment to update component
+			parentFlexBoxCssProperties = { ...parentFlexBoxCssProperties };
 		}
 	};
 
@@ -91,14 +95,16 @@
 		childflexItemsArr = [...childflexItemsArr];
 	};
 
-	$: if (flexItemsNumber > 50) {
-		error = 'More than 50 flex items are restricted !';
-		setTimeout(() => {
-			error = '';
-		}, 2000);
-	} else {
-		childflexItemsArr = new Array(flexItemsNumber);
+	$: {
 		activeFlexBoxItem = -1;
+		childflexItemsArr = [];
+
+		if (flexItemsNumber > 50) {
+			error = 'More than 50 flex items are restricted !';
+			setTimeout(() => {
+				error = '';
+			}, 2000);
+		}
 	}
 </script>
 
