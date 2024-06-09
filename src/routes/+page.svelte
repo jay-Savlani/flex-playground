@@ -168,7 +168,7 @@
 							: ''}
 						class="text-slate-900 text-2xl {activeFlexBoxItem === i
 							? 'bg-pink-500'
-							: 'bg-pink-300'} hover:bg-pink-500 cursor-pointer h-20 w-20 lg:h-24 lg:w-24 rounded-lg m-3 flex flex-row items-center justify-center"
+							: 'bg-pink-300'} hover:bg-pink-500 cursor-pointer h-20 w-20 lg:h-24 lg:w-24 rounded-lg m-3 flex flex-row items-center justify-center flexitem-transition"
 						on:click={(e) => handleChildFlexItemClick(e, i)}
 						on:keyup={(e) => {
 							if (e.keyCode === 13) {
@@ -339,5 +339,9 @@
 		background-image: url('../lib//images/elastic-band.webp');
 		background-repeat: no-repeat;
 		background-size: contain;
+	}
+
+	.flexitem-transition {
+		transition: all 0.1s ease-out;
 	}
 </style>

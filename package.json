@@ -6,7 +6,8 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"tailwind:compile": "npx tailwind -i src/routes/input.css -o src/routes/styles.css --watch"
 	},
 	"devDependencies": {
 		"@fontsource/fira-mono": "^4.5.10",
